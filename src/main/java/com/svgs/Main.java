@@ -19,7 +19,7 @@ public class Main {
         Scanner input =  new Scanner(System.in);
         String choice = input.nextLine();
         if(choice.equals("1")){
-            System.out.println("Username: "){
+            System.out.println("Username: ");
                 String username = input.nextLine();
                 System.out.println("Password: ");
                 String password = input.nextLine();
@@ -28,10 +28,16 @@ public class Main {
                 createUser(username,password,role);
             }
         }
-    }
+    
 
     public static void createUser(String u, String p, String r){
-        
+      String query = ("INSERT INTO users (userId, password, role) VALUES ('"+u+"','"+p+"','"+r+"'");
+      try{
+      state.executeUpdate (query);
+      }
+      catch (Exception e){
+
+      }
     }
 
     public static void createDB(){
@@ -40,7 +46,7 @@ public class Main {
         try{ 
             conn = DriverManager.getConnection(url);
             state=conn.createStatement();
-            String query= "CREATE TABLE users(userId TEXT, password TEXT, role TEXT)";
+            String query= "CREATE TABLE IF NOT EXISTS users(userId TEXT, password TEXT, role TEXT)";
             state.executeUpdate(query);
         }
         catch( Exception e){
